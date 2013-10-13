@@ -33,7 +33,7 @@ app.get('/push', function(req, res) {
 app.get('/', function(req, res) {
 //    var wanip = req.headers['x-forwarded-for'] || req.socket.address().address;
     var wanip = ensureForwardedFor(req);
-    db.computers.find({wanip: wanip}, {_id:0}, function(err, result) {
+    db.computers.find({wanip: wanip}, {_id:0}).sort({creationTime:-1}, function(err, result) {
         if (err) return res.send(500, { message: err.message });
         res.send(result);
     });
