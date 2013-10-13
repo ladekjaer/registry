@@ -7,7 +7,7 @@ var dbConString = 'mongodb://' + process.env.REGISTRY_AUTH + '@ds047958.mongolab
 var db = mongojs(dbConString, ['computers']);
 
 app.get('/push', function(req, res) {
-    var wanip = req.socket.address().address;
+    var wanip = req.headers['x-forwarded-for'] || req.socket.address().address;
     var hostname = req.query.hostname;
     var clientInfo = {
         _id: hostname + '@' + wanip
