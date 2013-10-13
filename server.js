@@ -1,5 +1,6 @@
 var mongojs = require('mongojs');
 var express = require('express');
+var send = require('send');
 
 var app = express();
 
@@ -11,6 +12,11 @@ var ensureForwardedFor = function(req) {
         || req.headers['x-forwarded-for']
         || req.socket.address().address;
 };
+
+app.get('/push.sh', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    send(req, './client.sh').pipe(res);
+});
 
 app.get('/push', function(req, res) {
 //    var wanip = req.headers['x-forwarded-for'] || req.socket.address().address;
@@ -39,4 +45,4 @@ app.get('/', function(req, res) {
     });
 });
 
-app.listen(8002);
+app.listen(process.env.PORT || 8080);

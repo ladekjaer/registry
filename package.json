@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "mongojs": "~0.9.6",
-    "express": "~3.4.0"
+    "express": "~3.4.0",
+    "send": "~0.1.4"
   }
 }
